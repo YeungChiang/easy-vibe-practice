@@ -1,0 +1,64 @@
+TAP version 13
+# Subtest: 移动
+ok 1 - 移动
+  ---
+  duration_ms: 2.406368
+  type: 'test'
+  ...
+# Subtest: 转向及禁止反向
+ok 2 - 转向及禁止反向
+  ---
+  duration_ms: 2.503511
+  type: 'test'
+  ...
+# Subtest: 吃词、增长、计分
+ok 3 - 吃词、增长、计分
+  ---
+  duration_ms: 2.596719
+  type: 'test'
+  ...
+# Subtest: 撞墙
+ok 4 - 撞墙
+  ---
+  duration_ms: 0.402605
+  type: 'test'
+  ...
+# Subtest: 撞自身
+ok 5 - 撞自身
+  ---
+  duration_ms: 0.517205
+  type: 'test'
+  ...
+# Subtest: 允许进入即将离开的尾格
+ok 6 - 允许进入即将离开的尾格
+  ---
+  duration_ms: 0.401264
+  type: 'test'
+  ...
+# Subtest: 暂停不更新
+ok 7 - 暂停不更新
+  ---
+  duration_ms: 0.31089
+  type: 'test'
+  ...
+# Subtest: 重置
+ok 8 - 重置
+  ---
+  duration_ms: 2.614616
+  type: 'test'
+  ...
+# Subtest: 棋盘填满后无食物
+ok 9 - 棋盘填满后无食物
+  ---
+  duration_ms: 1.292831
+  type: 'test'
+  ...
+1..9
+# tests 9
+# suites 0
+# pass 9
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 91.641834

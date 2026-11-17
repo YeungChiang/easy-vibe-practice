@@ -1,0 +1,10 @@
+const test=require('node:test'),a=require('node:assert/strict'),S=require('./core.js');const run=()=>({...S.reset(()=>0),status:'running'});
+test('移动',()=>{let s=run();s=S.step(s);a.deepEqual(s.snake[0],{x:9,y:9});a.equal(s.snake.length,3)});
+test('转向及禁止反向',()=>{let s=run();a.equal(S.turn(s,'ArrowLeft'),s);s=S.turn(s,'ArrowUp');a.equal(S.turn(s,'ArrowLeft'),s);a.deepEqual(S.step(s).snake[0],{x:8,y:8})});
+test('吃词、增长、计分',()=>{let s=run();s.food={x:9,y:9,word:'山'};s=S.step(s,()=>0);a.equal(s.score,10);a.equal(s.snake.length,4);a.deepEqual(s.words,['山']);a.ok(!s.snake.some(p=>p.x===s.food.x&&p.y===s.food.y))});
+test('撞墙',()=>{let s=run();s.snake=[{x:17,y:9},{x:16,y:9}];a.equal(S.step(s).status,'over')});
+test('撞自身',()=>{let s=run();s.snake=[{x:8,y:9},{x:8,y:8},{x:9,y:8},{x:9,y:9},{x:9,y:10}];a.equal(S.step(s).status,'over')});
+test('允许进入即将离开的尾格',()=>{let s=run();s.snake=[{x:8,y:9},{x:8,y:8},{x:9,y:8},{x:9,y:9}];a.equal(S.step(s).status,'running')});
+test('暂停不更新',()=>{let s={...run(),status:'paused'};a.equal(S.step(s),s)});
+test('重置',()=>{let s=S.reset();a.equal(s.score,0);a.equal(s.words.length,0);a.equal(s.status,'ready')});
+test('棋盘填满后无食物',()=>{const cells=Array.from({length:S.SIZE**2},(_,i)=>({x:i%S.SIZE,y:Math.floor(i/S.SIZE)}));a.equal(S.food(cells),null)});

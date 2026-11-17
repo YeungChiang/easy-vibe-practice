@@ -1,0 +1,5 @@
+Chromium 自动化测试未能执行：
+http://127.0.0.1:8765/ => net::ERR_BLOCKED_BY_ADMINISTRATOR
+file:///mnt/data/easy-vibe-practice/Task01/snake-game/index.html => net::ERR_BLOCKED_BY_ADMINISTRATOR
+因此未确认浏览器交互，未生成运行截图。
+Node HTTP 检查：GET /api/status => {"live":false}；POST /api/generate（无模型配置）=> {"error":"尚未配置模型"}。
