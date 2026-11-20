@@ -1,0 +1,11 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>鲸语织境 · 2048</title><link rel="stylesheet" href="./style.css"></head>
+<body><main class="wrap">
+<header><div class="eyebrow">DATAWHALE · EASY-VIBE · TASK02</div><h1>鲸语织境 <span>/ 2048</span></h1><p>将相同数字合并，向 2048 前进。</p></header>
+<section class="top"><div class="metrics"><div class="metric">分数<strong id="score">0</strong></div><div class="metric">最高分<strong id="best">0</strong></div><div class="metric">移动次数<strong id="moves">0</strong></div></div><div class="buttons"><button id="start" class="primary">开始游戏</button><button id="restart">重新开始</button><button id="undo">撤销一步</button></div></section>
+<div class="game"><div id="board" class="board" role="grid" aria-label="2048 游戏棋盘"></div><div id="overlay" class="overlay"><strong id="over-title">准备开始</strong><span id="over-desc">点击开始后使用方向键或 WASD 移动</span><button id="overlay-button" class="primary">开始</button></div></div>
+<p id="status" class="status" role="status">等待开始</p>
+<div class="dpad" aria-label="触屏方向控制"><button data-move="up">↑</button><div><button data-move="left">←</button><button data-move="down">↓</button><button data-move="right">→</button></div></div>
+<footer>电脑：方向键 / WASD · 手机：滑动棋盘 / 点击方向按钮 · 相同数字合并后累计得分</footer>
+</main><script src="./game.js"></script><script src="./main.js"></script></body></html>
