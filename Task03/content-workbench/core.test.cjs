@@ -1,0 +1,10 @@
+const test=require('node:test');const assert=require('node:assert/strict');const C=require('./core.js');
+test('批量解析',()=>assert.equal(C.parseProducts('A|杯|轻便|通勤\nB|包|防泼水|旅行').length,2));
+test('忽略空行',()=>assert.equal(C.parseProducts('\n A | 杯 | 轻便 | 通勤 \n').length,1));
+test('空输入',()=>assert.throws(()=>C.parseProducts(' '))); 
+test('缺少商品名',()=>assert.throws(()=>C.parseProducts('|杯|轻便|通勤')));
+const p={name:'A',category:'杯',features:'轻便',audience:'通勤'};
+test('默认标题',()=>assert.equal(C.makeDraft(p).title,'A · 杯'));
+test('模板替换',()=>assert.equal(C.makeDraft(p,C.makeTemplate('示例','{audience}精选：{name}','{features}')).title,'通勤精选：A'));
+test('不修改原数据',()=>{const before=JSON.stringify(p);C.makeDraft(p);assert.equal(JSON.stringify(p),before)});
+test('空模板名',()=>assert.throws(()=>C.makeTemplate(' ','{name}','{features}')));
