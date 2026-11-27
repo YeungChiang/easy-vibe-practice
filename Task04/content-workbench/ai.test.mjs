@@ -1,0 +1,14 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {validateProduct,buildRequest,parseResponse,generateCopy} from './ai.mjs';
+const p={"name":"山野随行杯","category":"户外水杯","features":"轻便","audience":"徒步爱好者"};
+const fixture={"model":"mock-model","id":"mock-request","usage":{"total_tokens":80},"choices":[{"message":{"content":"{\"title\":\"山野随行杯\",\"summary\":\"轻便户外水杯\",\"selling_points\":[\"轻便\",\"适合徒步\",\"户外随行\"]}"}}]};
+test('有效输入',()=>assert.equal(validateProduct(p).name,p.name));
+test('拒绝空名称',()=>assert.throws(()=>validateProduct({...p,name:' '})));
+test('构造请求',()=>{const r=buildRequest(p,'deepseek-flash');assert.equal(r.model,'deepseek-flash');assert.ok(r.messages[1].content.includes(p.name));});
+test('正常响应',()=>assert.equal(parseResponse(fixture).selling_points.length,3));
+test('JSON 围栏',()=>assert.equal(parseResponse({choices:[{message:{content:'```json\n'+fixture.choices[0].message.content+'\n```'}}]}).title,p.name));
+test('非 JSON',()=>assert.throws(()=>parseResponse({choices:[{message:{content:'不是JSON'}}]})));
+test('缺少字段',()=>assert.throws(()=>parseResponse({choices:[{message:{content:'{"title":"杯"}'}}]})));
+test('缺少密钥',()=>assert.rejects(()=>generateCopy(p,{key:'',fetcher:()=>{throw Error('should not call')}}),/尚未配置/));
+test('模拟调用与用量',async()=>{const r=await generateCopy(p,{key:'test-only',fetcher:async(url,options)=>{assert.equal(url,'https://api.deepseek.com/chat/completions');assert.equal(options.headers.Authorization,'Bearer test-only');return {ok:true,json:async()=>fixture}}});assert.equal(r.usage.total_tokens,80);});
+test('401',()=>assert.rejects(()=>generateCopy(p,{key:'test-only',fetcher:async()=>({ok:false,status:401})}),/Key 无效/));
+test('429',()=>assert.rejects(()=>generateCopy(p,{key:'test-only',fetcher:async()=>({ok:false,status:429})}),/频率受限/));

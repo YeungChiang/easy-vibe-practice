@@ -1,0 +1,13 @@
+JavaScript 执行环境测试（使用 mock HTTP 响应，不是 Node CLI 或真实网络测试）
+1. PASS 有效商品字段通过
+2. PASS 拒绝空名称
+3. PASS 提示词包含输入且不包含密钥
+4. PASS 正常 JSON 响应
+5. PASS 兼容 Markdown JSON 围栏
+6. PASS 拒绝非 JSON
+7. PASS 拒绝缺失字段
+8. PASS 未配置密钥不发出请求
+9. PASS 模拟上游请求与响应及用量
+10. PASS 模拟 401 错误
+11. PASS 模拟 429 限流
+总计：11/11 通过。真实 API、Node HTTP 服务与浏览器尚未联调。
